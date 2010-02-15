@@ -1,0 +1,18 @@
+#!/opt/local/bin/ruby
+
+rev = ARGV[0]
+env= ARGV[1] || "development"
+
+
+# better, but later.
+# # reset database before each example is run
+# max_no = DB["select max(version) as v from schema_info"].first[:v].to_i || 1
+# # max_no = 1
+# Sequel.extension :migration
+# Sequel::Migrator.apply(DB, "#{Dir.pwd}/db/migrations", max_no)
+
+
+# the has to be created by this script it seems
+s = `sequel -m ./db/migrations -M #{rev} sqlite://db/#{env}.db`
+puts s if s and s.size > 0
+ 

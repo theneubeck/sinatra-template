@@ -1,0 +1,7 @@
+# sqlite3 db/development.db
+v="development"
+if [ $1 ];then
+  v=$1
+fi
+
+sqlite3 db/$v.db
