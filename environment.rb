@@ -1,23 +1,32 @@
 require 'rubygems'
-require 'dm-core'
-require 'dm-timestamps'
-require 'dm-validations'
-require 'dm-aggregates'
+require 'sqlite3'
+require 'sequel'
 require 'haml'
 require 'ostruct'
+require 'rack-flash'
+require 'sinatra_more/markup_plugin'
+require 'sinatra_more/render_plugin'
+require 'cgi'
 
-require 'sinatra' unless defined?(Sinatra)
+require 'sinatra/base' unless defined?(Sinatra)
 
-configure do
-  SiteConfig = OpenStruct.new(
-                 :title => 'Your Application Name',
-                 :author => 'Your Name',
-                 :url_base => 'http://localhost:4567/'
-               )
+class Sinatra::Base
 
-  DataMapper.setup(:default, "sqlite3:///#{File.expand_path(File.dirname(__FILE__))}/#{Sinatra::Base.environment}.db")
+  configure do
+    SiteConfig = OpenStruct.new(
+                   :title => 'Your Application Name',
+                   :author => 'Your Name',
+                   :url_base => 'http://localhost:4567/'
+                 )
 
-  # load models
-  $LOAD_PATH.unshift("#{File.dirname(__FILE__)}/lib")
-  Dir.glob("#{File.dirname(__FILE__)}/lib/*.rb") { |lib| require File.basename(lib, '.*') }
+    ::DB = Sequel.connect("sqlite://#{File.expand_path(File.dirname(__FILE__))}/db/#{Sinatra::Base.environment}.db")
+
+    # load helpers
+    $LOAD_PATH.unshift("#{File.dirname(__FILE__)}/helpers")
+    Dir.glob("#{File.dirname(__FILE__)}/helpers/*.rb") { |l| require File.basename(l, '.*') }  
+
+    # load models
+    $LOAD_PATH.unshift("#{File.dirname(__FILE__)}/lib")
+    Dir.glob("#{File.dirname(__FILE__)}/lib/*.rb") { |lib| require File.basename(lib, '.*') }  
+  end
 end
