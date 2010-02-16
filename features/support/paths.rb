@@ -8,10 +8,6 @@ module NavigationHelpers
   def path_to(page_name)
     case page_name
     
-    when /articles index/
-      '/articles'
-    when /articles new/
-      '/articles/new'
     when /index/
       '/'
     

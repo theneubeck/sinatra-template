@@ -13,7 +13,7 @@ require 'sinatra/base' unless defined?(Sinatra)
 class Sinatra::Base
 
   configure do
-    SiteConfig = OpenStruct.new(
+    ::SiteConfig = OpenStruct.new(
                    :title => 'Your Application Name',
                    :author => 'Your Name',
                    :url_base => 'http://localhost:4567/'

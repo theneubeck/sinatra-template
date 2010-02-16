@@ -3,6 +3,7 @@ require 'sinatra'
 require 'rack/test'
 require 'spec'
 require 'spec/interop/test'
+
 # set test environment
 Sinatra::Base.set :environment, :test
 Sinatra::Base.set :run, false

@@ -42,4 +42,9 @@ end
 class MainApp < Sinatra::Base
   
   register PlugableRouter
+
+  get "/" do
+    "Hello World"
+  end
+  
 end

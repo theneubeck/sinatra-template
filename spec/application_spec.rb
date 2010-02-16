@@ -4,10 +4,10 @@ describe 'main application' do
   include Rack::Test::Methods
 
   def app
-    Sinatra::Application.new
+    MainApp.new
   end
 
-  specify 'should show the default index page' do
+  it 'should show the default index page' do
     get '/'
     last_response.should be_ok
   end
