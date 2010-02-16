@@ -12,5 +12,5 @@ Sinatra::Base.set :logging, false
 require 'application'
 
 Spec::Runner.configure do |config|
-  config.before(:each) { # }
+  # config.before(:each) { } 
 end
